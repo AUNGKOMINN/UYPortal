@@ -1,0 +1,49 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    >
+    <TextView
+        android:id="@+id/pwd_reset_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="18dp"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:textSize="20dp"
+        android:text="Password Reset"
+        />
+    <TextView
+        android:id="@+id/pwd_reset_msg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:textSize="16dp"
+        android:text="@string/pwd_reset_msg"
+        />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/reset_pwd_dialog_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        >
+        <EditText
+            android:id="@+id/reset_pwd_dialog_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textColor="@color/my_primary_dark"
+            android:singleLine="true"
+            android:inputType="textEmailAddress"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+</LinearLayout>
+

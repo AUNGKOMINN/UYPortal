@@ -1,0 +1,62 @@
+<resources>
+    <string name="app_name">UY Portal</string>
+    <string name="username_lbl">Username</string>
+    <string name="pwd_lbl">Password</string>
+    <string name="email_lbl">Email</string>
+    <string name="forget_pwd"><u>Forget Password?</u></string>
+    <string name="fullname_lbl">Full Name</string>
+    <string name="login_lbl">log in</string>
+    <string name="major_lbl">Major</string>
+    <string name="login_link">Already member? Log in here</string>
+    <string name="signup_lbl">Sign up</string>
+    <string name="signup_link">Not create yet? Sign Up here</string>
+    <string name="register_lbl"><b>Register your account</b></string>
+
+    <string name="sufragment_s1">Hi, What is your name?</string>
+    <string name="sufragment_s2">What is your major?</string>
+    <string name="sufragment_s3">We never send you spam</string>
+    <string name="sufragment_s4">Set your password for UY Portal</string>
+    <string name="sufragment_s5">Set an unique username</string>
+
+
+
+    <string name="sufragdetail_s1">Your Full Name can help others know who you are!</string>
+    <string name="sufragdetail_s2">We will know which major you are studying</string>
+    <string name="sufragdetail_s3">We just use your email to reset your password!</string>
+    <string name="sufragdetail_s4">Make sure your password cannot be predictable</string>
+    <string name="sufragdetail_s5">You can log in later with this username</string>
+
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+
+
+    <string name="welcome"><b>Welcome to UY Portal</b></string>
+    <string name="welcome_below"><p>Let\'s make a discussion among only UY students!</p></string>
+
+    <string name="pwd_reset_msg">"You will get inbox mail for password reset link via your email. Please make sure your email is verified."</string>
+
+    <string-array name="major_list">
+        <item>Anthropology</item>
+        <item>Archaeology</item>
+        <item>Botany</item>
+        <item>Chemistry</item>
+        <item>Computer Science</item>
+        <item>English</item>
+        <item>Geography</item>
+        <item>Geology</item>
+        <item>History</item>
+        <item>Industrial Chemistry</item>
+        <item>International Relations</item>
+        <item>Law</item>
+        <item>Library and Information Studies</item>
+        <item>Mathematics</item>
+        <item>Myanmar</item>
+        <item>Oriental Studies</item>
+        <item>Philosophy</item>
+        <item>Physics</item>
+        <item>Political Science</item>
+        <item>Psychology</item>
+        <item>Zoology</item>
+    </string-array>
+
+</resources>

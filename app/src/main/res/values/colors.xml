@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <color name="window_background">#CC000000</color>
+    <color name="my_primary">#25ab2a</color>
+    <color name="my_primary_dark">#2c9431</color>
+    <color name="my_primary_light">#B3E5FC</color>
+    <color name="my_accent">#08500a</color>
+    <color name="my_primary_text">#044101</color>
+    <color name="my_secondary_text">#25ab2a</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="my_icons">#FFFFFF</color>
+    <color name="my_divider">#fffefe</color>
+    <color name="statusBarColor">#5be16b</color>
+    <color name="light_green">#7FFFAA</color>
+    <color name="red">#de3434</color>
+    <color name="green">#15e715</color>
+    <color name="blue">#e521f59d</color>
+    <color name="orange">#e1a54a</color>
+    <color name="purple">#cec237f9</color>
+    <color name="yellow">#efa802</color>
+    <color name="grey">#878787</color>
+
+    <color name="green1">#3FA32B</color>
+    <color name="green2">#3CC920</color>
+    <color name="green3">#3DF718</color>
+    <color name="green4">#1fa305</color>
+
+    <color name="theme_base">#243340</color>
+</resources>
