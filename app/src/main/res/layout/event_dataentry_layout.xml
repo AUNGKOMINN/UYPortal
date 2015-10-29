@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingRight="5dp"
+        android:paddingLeft="5dp">
+
+        <LinearLayout
+            android:id="@+id/name_LinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Event name : "
+                android:textStyle="bold"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            <EditText
+                android:id="@+id/eventName_EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="20dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/location_LinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@id/name_LinearLayout">
+
+            <TextView
+                android:paddingTop="20dp"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Event location : "
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            <EditText
+                android:paddingTop="20dp"
+                android:id="@+id/eventLocation_EditText"
+                
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/date_LinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@id/location_LinearLayout">
+                <TextView
+                    android:paddingTop="20dp"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Event date : "
+                    android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            <EditText
+                android:id="@+id/eventDate_EditText"
+                android:paddingTop="20dp"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:hint="Click to select date"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/time_LinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@id/date_LinearLayout">
+            <TextView
+                android:paddingTop="20dp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Event time : "
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            <EditText
+                android:id="@+id/eventTime_EditText"
+                android:paddingTop="20dp"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:hint="Click to select time"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/importance_LinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@id/time_LinearLayout">
+
+            <TextView
+                android:textStyle="bold"
+                android:paddingTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Importance :"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            <RadioGroup
+                android:paddingTop="20dp"
+                android:id="@+id/importance_RadioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <RadioButton
+                    android:id="@+id/important_RadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="For Fun" />
+
+                <RadioButton
+                    android:id="@+id/veryImportant_RadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Important"
+                    android:checked="true"/>
+
+                <RadioButton
+                    android:id="@+id/forFun_RadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Very Imporant" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/relatedTo_LinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@id/importance_LinearLayout">
+
+            <TextView
+                android:paddingTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Related to :"
+                android:textStyle="bold"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+            <EditText
+                android:paddingTop="20dp"
+                android:id="@+id/relatedTo_EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:hint="All or respective departments"></EditText>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/description_LinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@id/relatedTo_LinearLayout">
+
+            <TextView
+                android:paddingTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="Event description :"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            <EditText
+                android:paddingTop="20dp"
+                android:id="@+id/eventDescription_EditText"
+                android:layout_width="match_parent"
+                
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/buttons_LinearLayout"
+            android:gravity="right"
+            android:layout_below="@id/description_LinearLayout">
+            <Button
+                android:id="@+id/cancelEvent_Button"
+                android:paddingTop="20dp"
+                android:textAlignment="center"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Cancel" />
+            <Button
+                android:id="@+id/requestEvent_Button"
+                android:paddingTop="20dp"
+                android:textAlignment="center"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Request Event" />
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+    </ScrollView>
