@@ -35,18 +35,24 @@ public class StatusTextView extends TextView {
         paint.setColor(getResources().getColor(R.color.paper_line));
         paint.setStrokeWidth(getLineHeight() / 10);
         paint.setStrokeCap(Paint.Cap.ROUND);
+
+
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         float startX = getPaddingLeft();
         float stopX = getWidth() - getPaddingRight();
-        float offsetY = getPaddingTop() - getPaint().getFontMetrics().top + paint.getStrokeWidth() / 2;
+        float offsetY = getPaddingTop() - getPaint().getFontMetrics().top + paint.getStrokeWidth() / 3;
+
 
         for (int i = 0; i < getLineCount(); ++i) {
             float y = offsetY + getLineHeight() * i;
             canvas.drawLine(startX, y, stopX, y, paint);
+
+
         }
+
 
         super.onDraw(canvas);
     }

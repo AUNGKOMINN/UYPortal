@@ -17,7 +17,7 @@
         <!-- color of the menu overflow icon (three vertical dots) -->
         <item name="android:textColorSecondary">@color/my_secondary_text</item>
 
-        <item name="android:windowBackground">@drawable/gradient_bg</item>
+
 
         <item name="colorButtonNormal">@color/my_primary_dark</item>
         <item name="android:textColorHint">@color/grey</item>

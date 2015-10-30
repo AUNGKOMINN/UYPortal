@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -54,6 +55,8 @@ public class Event_DataEntry_Activity extends AppCompatActivity {
     private DatePickerDialog eventDatePickerDialog;
     private TimePickerDialog eventTimePickerDialog;
 
+    private Toolbar toolbar;
+
     private String event_Name;
     private String event_Location;
     private int year = 0;
@@ -83,8 +86,8 @@ public class Event_DataEntry_Activity extends AppCompatActivity {
         //Making layout fixed when keyboard pops up
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setHomeButtonEnabled(true);
+        setToolbar();
+
 
         //Show Date Picker Dialog
         Calendar newCalendar = Calendar.getInstance();
@@ -185,6 +188,13 @@ public class Event_DataEntry_Activity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void setToolbar() {
+        toolbar = (Toolbar) findViewById(R.id.event_Dataentry_Toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
     private String changeMonthToString(int m) {
@@ -317,7 +327,7 @@ public class Event_DataEntry_Activity extends AppCompatActivity {
 
 
     private void sendEventDataToParse() {
-        ParseObject eventrequest = new ParseObject("EventRequests");
+        ParseObject eventrequest = new ParseObject(ParseConstants.CLASS_EVENTS);
         eventrequest.put(ParseConstants.KEY_EVENT_NAME, event_Name);
         eventrequest.put(ParseConstants.KEY_EVENT_LOCATION, event_Location);
         eventrequest.put(ParseConstants.KEY_EVENT_YEAR, year);

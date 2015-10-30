@@ -2,27 +2,35 @@
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fillViewport="true"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:paddingRight="5dp"
-        android:paddingLeft="5dp">
-
+        android:orientation="vertical">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/event_Dataentry_Toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/my_primary"
+            android:minHeight="?attr/actionBarSize"
+            android:elevation="@dimen/cardview_default_elevation"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
         <LinearLayout
             android:id="@+id/name_LinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_below="@+id/event_Dataentry_Toolbar"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp">
 
             <TextView
+                android:paddingTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Event name : "
+                android:text="1. Event name : "
                 android:textStyle="bold"
                 android:textAppearance="?android:attr/textAppearanceMedium"/>
 
@@ -31,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="20dp"
-                />
+                android:inputType="text"/>
         </LinearLayout>
 
         <LinearLayout
@@ -39,20 +47,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_below="@id/name_LinearLayout">
+            android:layout_below="@id/name_LinearLayout"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp">
 
             <TextView
                 android:paddingTop="20dp"
                 android:textStyle="bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Event location : "
+                android:text="2. Event location : "
                 android:textAppearance="?android:attr/textAppearanceMedium"/>
 
             <EditText
                 android:paddingTop="20dp"
                 android:id="@+id/eventLocation_EditText"
-                
+                android:inputType="text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -62,13 +72,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_below="@id/location_LinearLayout">
+            android:layout_below="@id/location_LinearLayout"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp">
                 <TextView
                     android:paddingTop="20dp"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Event date : "
+                    android:text="3. Event date : "
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
 
             <EditText
@@ -76,9 +88,10 @@
                 android:paddingTop="20dp"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
+                android:focusableInTouchMode="false"
                 android:editable="false"
                 android:hint="Click to select date"
-                android:textAppearance="?android:attr/textAppearanceMedium"/>
+                android:textAppearance="?android:attr/textAppearanceMedium" />
         </LinearLayout>
 
         <LinearLayout
@@ -86,13 +99,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_below="@id/date_LinearLayout">
+            android:layout_below="@id/date_LinearLayout"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp">
             <TextView
                 android:paddingTop="20dp"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Event time : "
+                android:text="4. Event time : "
                 android:textAppearance="?android:attr/textAppearanceMedium"/>
 
             <EditText
@@ -102,6 +117,7 @@
                 android:layout_height="wrap_content"
                 android:editable="false"
                 android:hint="Click to select time"
+                android:focusableInTouchMode="false"
                 android:textAppearance="?android:attr/textAppearanceMedium"/>
         </LinearLayout>
 
@@ -110,14 +126,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_below="@id/time_LinearLayout">
+            android:layout_below="@id/time_LinearLayout"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp">
 
             <TextView
                 android:textStyle="bold"
                 android:paddingTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Importance :"
+                android:text="5. Importance :"
                 android:textAppearance="?android:attr/textAppearanceMedium"/>
 
             <RadioGroup
@@ -129,14 +147,15 @@
                 android:weightSum="3">
 
                 <RadioButton
-                    android:id="@+id/important_RadioButton"
+                    android:id="@+id/forFun_RadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="For Fun" />
+                    android:text="For Fun"
+                    android:checked="false" />
 
                 <RadioButton
-                    android:id="@+id/veryImportant_RadioButton"
+                    android:id="@+id/important_RadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -144,11 +163,11 @@
                     android:checked="true"/>
 
                 <RadioButton
-                    android:id="@+id/forFun_RadioButton"
+                    android:id="@+id/veryImportant_RadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Very Imporant" />
+                    android:text="Very Important" />
             </RadioGroup>
         </LinearLayout>
 
@@ -157,13 +176,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_below="@id/importance_LinearLayout">
+            android:layout_below="@id/importance_LinearLayout"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp">
 
             <TextView
                 android:paddingTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Related to :"
+                android:text="6. Related to :"
                 android:textStyle="bold"
                 android:textAppearance="?android:attr/textAppearanceMedium"/>
             <EditText
@@ -172,7 +193,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:editable="false"
-                android:hint="All or respective departments"></EditText>
+                android:focusableInTouchMode="false"
+                android:hint="All or respective department"></EditText>
         </LinearLayout>
 
         <LinearLayout
@@ -180,45 +202,42 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_below="@id/relatedTo_LinearLayout">
+            android:layout_below="@id/relatedTo_LinearLayout"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp">
 
             <TextView
                 android:paddingTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:text="Event description :"
+                android:text="7. Event description (Optional) :"
                 android:textAppearance="?android:attr/textAppearanceMedium"/>
 
             <EditText
                 android:paddingTop="20dp"
                 android:id="@+id/eventDescription_EditText"
                 android:layout_width="match_parent"
-                
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:id="@+id/buttons_LinearLayout"
             android:gravity="right"
-            android:layout_below="@id/description_LinearLayout">
-            <Button
-                android:id="@+id/cancelEvent_Button"
-                android:paddingTop="20dp"
-                android:textAlignment="center"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Cancel" />
+            android:layout_below="@id/description_LinearLayout"
+            android:paddingTop="20dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp">
+
             <Button
                 android:id="@+id/requestEvent_Button"
-                android:paddingTop="20dp"
                 android:textAlignment="center"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Request Event" />
+                android:text="Request Event"
+                android:focusable="true"/>
 
 
         </LinearLayout>

@@ -4,24 +4,25 @@
 
     <item
         android:id="@+id/navigation_item_1"
+        android:icon="@drawable/cast_ic_notification_2"
 
-        android:title="Navigation Item 1" />
+        android:title="Places" />
     <item
         android:id="@+id/navigation_item_2"
 
-        android:title="Navigation Item 2" />
+        android:title="Events" />
     <item
         android:id="@+id/navigation_item_3"
 
-        android:title="Navigation Item 3" />
+        android:title="Notifications" />
     <item
         android:id="@+id/navigation_item_4"
 
-        android:title="Navigation Item 4" />
+        android:title="Setting" />
     <item
         android:id="@+id/navigation_item_5"
 
-        android:title="Navigation Item 5" />
+        android:title="Log Out" />
 
     <!--The drawer itesm below have been classified into groups-->
 

@@ -3,7 +3,7 @@ package uycs.uyportal.ui.Notifications;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,26 +13,27 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import yu.cs.yuwall.R;
-import yu.cs.yuwall.ui.Newsfeed_Module.Events.Event_DataEntry_Activity;
-import yu.cs.yuwall.ui.Newsfeed_Module.Events.Event_Detail_Activity;
-import yu.cs.yuwall.utils.CheckConnection;
-import yu.cs.yuwall.utils.Object_Models.Events_Model;
-import yu.cs.yuwall.utils.Object_Models.Notifications_Model;
-import yu.cs.yuwall.utils.Parse.ParseConstants;
-import yu.cs.yuwall.utils.RecyclerItemClickListener;
+import uycs.uyportal.R;
+import uycs.uyportal.model.Notifications_Model;
+import uycs.uyportal.ui.Events.Event_Detail_Activity;
+import uycs.uyportal.util.CheckConnection;
+import uycs.uyportal.util.Events.RecyclerItemClickListener;
+import uycs.uyportal.util.ParseConstants;
 
 /**
  * Created by All User on 10/29/2015.
@@ -55,7 +56,6 @@ public class notification_fragment extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View inflatedView = inflater.inflate(R.layout.notification_fragment, container, false);
         ButterKnife.bind(this, inflatedView);
-
         //Show icons in action bar of this fragment
         setHasOptionsMenu(true);
 
@@ -104,7 +104,7 @@ public class notification_fragment extends android.support.v4.app.Fragment {
             e.printStackTrace();
         }
         if(netConnectionCheck()) {
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("Notification");
+            ParseQuery<ParseObject> query = ParseQuery.getQuery(ParseConstants.CLASS_NOTIFICATIONS);
             query.whereEqualTo(ParseConstants.KEY_TO_USER, currentUser.getUsername());
             query.orderByDescending("createdAt");
             query.findInBackground(new FindCallback<ParseObject>() {

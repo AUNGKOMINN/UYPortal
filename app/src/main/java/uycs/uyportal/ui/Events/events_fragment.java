@@ -3,6 +3,7 @@ package uycs.uyportal.ui.Events;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.CardView;
@@ -14,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -31,7 +33,12 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import uycs.uyportal.R;
+import uycs.uyportal.model.Events_Model;
+import uycs.uyportal.util.Events.Calendar_Decorators.EventDecorator;
+import uycs.uyportal.util.Events.Calendar_Decorators.HighlightWeekendsDecorator;
+import uycs.uyportal.util.Events.Calendar_Decorators.OneDayDecorator;
 import uycs.uyportal.util.CheckConnection;
+import uycs.uyportal.util.Events.RecyclerItemClickListener;
 import uycs.uyportal.util.ParseConstants;
 
 /**
@@ -44,7 +51,6 @@ public class events_fragment extends android.support.v4.app.Fragment {
     @Bind(R.id.onLoad_view) TextView onLoad_view;
     @Bind(R.id.noEvent_view) TextView noEvent_view;
     @Bind(R.id.event_fragment_Relative_Layout) RelativeLayout event_fragment_Relative_Layout;
-
     private RecyclerView eventList_RecyclerView;
     private EventList_RecyclerViewAdapter eventList_RecyclerView_Adapter;
     private List<Events_Model> events = new ArrayList<>();
@@ -81,7 +87,7 @@ public class events_fragment extends android.support.v4.app.Fragment {
 
 
                     // Query from the Local Datastore
-                    ParseQuery<ParseObject> localQuery = ParseQuery.getQuery("EventRequests");
+                    ParseQuery<ParseObject> localQuery = ParseQuery.getQuery(ParseConstants.CLASS_EVENTS);
                     localQuery.fromLocalDatastore().whereEqualTo(ParseConstants.KEY_EVENT_DATE, "" + date.getDay() + " / " + changeMonthToString(date.getMonth() + 1) + " / " + date.getYear());
                     localQuery.addAscendingOrder(ParseConstants.KEY_EVENT_HOUR);
                     localQuery.addAscendingOrder(ParseConstants.KEY_EVENT_MINUTE);
@@ -131,7 +137,7 @@ public class events_fragment extends android.support.v4.app.Fragment {
 
                     events.clear();
                     // Query from the Local Datastore
-                    ParseQuery<ParseObject> localQuery = ParseQuery.getQuery("EventRequests");
+                    ParseQuery<ParseObject> localQuery = ParseQuery.getQuery(ParseConstants.CLASS_EVENTS);
                     localQuery.fromLocalDatastore().whereEqualTo(ParseConstants.KEY_EVENT_DATE, "" + date.getDay() + " / " + changeMonthToString(date.getMonth() + 1) + " / " + date.getYear());
                     localQuery.addAscendingOrder(ParseConstants.KEY_EVENT_HOUR);
                     localQuery.addAscendingOrder(ParseConstants.KEY_EVENT_MINUTE);
@@ -186,7 +192,7 @@ public class events_fragment extends android.support.v4.app.Fragment {
                     @Override
                     public void onItemClick(View view, int position) {
                         // TODO Handle item click
-                        Intent intent = new Intent(getContext(), Event_Detail_Activity.class);
+                        Intent intent = new Intent(getActivity(), Event_Detail_Activity.class);
                         intent.putExtra("event_Name", localObjectList.get(position).get(ParseConstants.KEY_EVENT_NAME).toString());
                         intent.putExtra("event_Location", localObjectList.get(position).get(ParseConstants.KEY_EVENT_LOCATION).toString());
                         intent.putExtra("event_Date", localObjectList.get(position).get(ParseConstants.KEY_EVENT_DATE).toString());
@@ -223,7 +229,7 @@ public class events_fragment extends android.support.v4.app.Fragment {
         // handle item selection
         switch (item.getItemId()) {
             case R.id.create_event_item:
-                Intent intent = new Intent(getContext(), Event_DataEntry_Activity.class);
+                Intent intent = new Intent(getActivity(), Event_DataEntry_Activity.class);
                 startActivity(intent);
                 return true;
             default:
@@ -236,7 +242,7 @@ public class events_fragment extends android.support.v4.app.Fragment {
     private void getEventsToDisplay() {
         final ArrayList<CalendarDay> dates = new ArrayList<>();
         if(!netConnectionCheck()){
-            ParseQuery<ParseObject> localQuery = ParseQuery.getQuery("EventRequests");
+            ParseQuery<ParseObject> localQuery = ParseQuery.getQuery(ParseConstants.CLASS_EVENTS);
             localQuery.fromLocalDatastore();
             localQuery.findInBackground(new FindCallback<ParseObject>() {
                 @Override
@@ -261,7 +267,7 @@ public class events_fragment extends android.support.v4.app.Fragment {
                 e.printStackTrace();
             }
 
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("EventRequests");
+            ParseQuery<ParseObject> query = ParseQuery.getQuery(ParseConstants.CLASS_EVENTS);
             query.whereEqualTo(ParseConstants.KEY_EVENT_CONFIRM, true);
             query.findInBackground(new FindCallback<ParseObject>() {
                 @Override
@@ -366,8 +372,8 @@ public class events_fragment extends android.support.v4.app.Fragment {
             String importance = events.getImportance();
             int importance_int = events.getImportance_Int();
             if(importance_int == 1) {
-                holder.textview_Color.setBackgroundColor(Color.parseColor("#a1e715"));
-                textview_Detail_Color = Color.parseColor("#a1e715");
+                holder.textview_Color.setBackgroundColor(Color.parseColor("#a3e71518"));
+                textview_Detail_Color = Color.parseColor("#a3e71518");
             }
             else if (importance_int == 2){
                 holder.textview_Color.setBackgroundColor(Color.parseColor("#e7b315"));

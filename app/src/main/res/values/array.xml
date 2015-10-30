@@ -1,2 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+
+<resources>
+    <string-array name="map_places">
+
+
+        <item> Adipati Road</item>
+        <item>Convocaton Hall</item>
+        <item>Thit Pote</item>
+        <item>Recreation Center</item>
+        <item>Students Service Center</item>
+        <item>Library</item>
+        <item>Science Departments</item>
+        <item>Art Departments</item>
+        <item>ULB</item>
+        <item>Science Canteen</item>
+        <item>Art Canteen</item>
+        <item>Girl Hostels</item>
+        <item>Boy Hostels</item>
+        <item>Dagon Hoste</item>
+
+    </string-array>
+
+
+</resources>

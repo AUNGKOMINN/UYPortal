@@ -25,7 +25,8 @@
     <string name="sufragdetail_s3">We just use your email to reset your password!</string>
     <string name="sufragdetail_s4">Make sure your password cannot be predictable</string>
     <string name="sufragdetail_s5">You can log in later with this username</string>
-
+    <string name="appID_Parse">I6b99wcqRWRvMidSF0qm6fBDfqxiq9dK8gR85Arg</string>
+    <string name="clientID_Parse">C9pDP6hgMUsmMca1DLodci6aXtxvwo3u8eZL0JTR</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
 
@@ -59,4 +60,48 @@
         <item>Zoology</item>
     </string-array>
 
+    <string-array name="department_list_event_dataentry">
+        <item>All</item>
+        <item>Anthropology</item>
+        <item>Archaeology</item>
+        <item>Botany</item>
+        <item>Chemistry</item>
+        <item>Computer Science</item>
+        <item>English</item>
+        <item>Geography</item>
+        <item>Geology</item>
+        <item>History</item>
+        <item>Industrial Chemistry</item>
+        <item>International Relations</item>
+        <item>Law</item>
+        <item>Library and Information Studies</item>
+        <item>Mathematics</item>
+        <item>Myanmar</item>
+        <item>Oriental Studies</item>
+        <item>Philosophy</item>
+        <item>Physics</item>
+        <item>Psychology</item>
+        <item>Zoology</item>
+        <item>Political Science</item>
+    </string-array>
+
+    <string-array name="colors" translatable="false">
+        <item>#99cc00</item>
+        <item>#33b5e5</item>
+        <item>#0099cc</item>
+        <item>#547bca</item>
+        <item>#aa66cc</item>
+        <item>#9933cc</item>
+        <item>#669900</item>
+        <item>#aeb857</item>
+        <item>#cc0000</item>
+        <item>#df5948</item>
+        <item>#ff4444</item>
+        <item>#ae6b23</item>
+        <item>#ff8800</item>
+        <item>#e5ae4f</item>
+        <item>#ffbb33</item>
+        <item>#cccccc</item>
+        <item>#888888</item>
+    </string-array>
 </resources>

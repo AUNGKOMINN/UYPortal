@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -22,14 +23,15 @@ public class Event_Detail_Activity extends AppCompatActivity {
     @Bind(R.id.textview_detail_color) TextView textview_detail_color;
     @Bind(R.id.event_Description_Detail_TextView) TextView event_Description_Detail_Textview;
 
+    private Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.event_detail_layout);
         ButterKnife.bind(this);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setHomeButtonEnabled(true);
+        setToolbar();
 
         Intent intent = getIntent();
         int textview_Detail_Color = intent.getIntExtra("textview_Detail_Color", Color.parseColor("#000000"));
@@ -65,4 +67,15 @@ public class Event_Detail_Activity extends AppCompatActivity {
         super.onBackPressed();
     }
 
+    private void setToolbar() {
+        toolbar = (Toolbar) findViewById(R.id.event_Detail_Toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+    }
+
+
+
 }
+
+

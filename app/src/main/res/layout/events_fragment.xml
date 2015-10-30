@@ -1,36 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="5dp"
     android:paddingBottom="5dp"
     android:paddingRight="5dp"
-    android:paddingLeft="5dp">
-
-    <TextView
-        android:id="@+id/createEvent_TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:clickable="true"
-        android:text="Create Event"
-        android:textColor="#36b334"
-        android:textAppearance="?android:attr/textAppearanceMedium"/>
+    android:paddingLeft="5dp"
+    android:id="@+id/event_fragment_Relative_Layout"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <com.prolificinteractive.materialcalendarview.MaterialCalendarView
         android:gravity="center"
         android:id="@+id/calendar_MaterialCalendarView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        xmlns:app="http://schemas.android.com/apk/res-auto" />
-    <!--
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/eventList_RecyclerView"
-            android:scrollbars="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            xmlns:android="http://schemas.android.com/apk/res/android" />
-    -->
+        android:layout_height="wrap_content" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/onLoad_view"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Select the date to see event."
+        android:visibility="visible"
+        android:layout_below="@+id/calendar_MaterialCalendarView" />
+
+    <TextView
+        android:id="@+id/noEvent_view"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="There is no event on this day."
+        android:visibility="gone"
+        android:layout_below="@id/calendar_MaterialCalendarView"/>
+
+    <view
+        android:id="@+id/eventList_RecyclerView"
+        class = "android.support.v7.widget.RecyclerView"
+        android:scrollbars="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:visibility="gone"
+        android:layout_below="@+id/calendar_MaterialCalendarView"/>
+
+</RelativeLayout>

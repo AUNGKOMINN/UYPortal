@@ -98,7 +98,7 @@ public class Login_Activity extends AppCompatActivity {
             public void done(ParseUser user, ParseException e) {
                 if (pd.isShowing()) pd.dismiss();
                 if (user != null) {
-                    Intent intent = new Intent(getApplicationContext(), NewFeedActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), NewsFeedActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     ParseConstants.KEY_USER_LOGGED = true;
                     startActivity(intent);
@@ -241,21 +241,13 @@ public class Login_Activity extends AppCompatActivity {
 
     private void username_validate(EditText et){
         String text = et.getText().toString();
-        if(text.isEmpty()){
-            usernameOK = false;
-        }else{
-            usernameOK = true;
-        }
+        usernameOK = !text.isEmpty();
         bothOK();
     }
 
     private void pwd_validate(EditText et){
         String text = et.getText().toString();
-        if(text.isEmpty() || text.length() < 6){
-            pwdOK = false;
-        }else{
-            pwdOK = true;
-        }
+        pwdOK = !(text.isEmpty() || text.length() < 6);
         bothOK();
     }
 

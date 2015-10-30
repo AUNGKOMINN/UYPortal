@@ -1,6 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto" 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/activity_horizontal_margin">
 
-</LinearLayout>
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5sp"
+        card_view:cardBackgroundColor="#EFEFEF"
+        card_view:cardCornerRadius="13dp"
+        card_view:cardElevation="10dp">
+        <!-- Main Content View -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rl"
+            android:padding="3dp">
+            
+            <uycs.uyportal.util.LetterImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:elevation="8dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:id="@+id/myicon"
+                android:padding="3dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RC"
+                android:id="@+id/to"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_above="@+id/contents"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"/>
+            <uycs.uyportal.ui.StatusTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="3dp"
+                android:layout_below="@+id/myicon"
+                android:id="@+id/contents"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:textSize="20dp"
+                android:text="something" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:padding="3dp"
+                android:textStyle="italic"
+                android:layout_below="@+id/contents"
+                android:text="username"
+                android:gravity="right"
+                android:elegantTextHeight="true"
+                android:layout_marginRight="15dp"
+                android:id="@+id/postusername"
+                />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

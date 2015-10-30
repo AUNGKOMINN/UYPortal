@@ -18,13 +18,18 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.View;
+import android.widget.Toast;
 
 import com.parse.ParseUser;
+import uycs.uyportal.R;
+import uycs.uyportal.adapter.postholder;
+import uycs.uyportal.ui.Events.events_fragment;
+import uycs.uyportal.ui.Notifications.notification_fragment;
+import uycs.uyportal.ui.Setting.setting_fragment;
+import uycs.uyportal.util.CheckConnection;
 
-
-import yu.cs.yuwall.R;
 
 public class NewsFeedActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -35,7 +40,10 @@ public class NewsFeedActivity extends AppCompatActivity implements NavigationVie
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private int mSelectedId;
+    public static boolean postable=false;
     private boolean mUserSawDrawer = false;
+    private Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,17 +55,9 @@ public class NewsFeedActivity extends AppCompatActivity implements NavigationVie
             Log.i(TAG, currentUser.getUsername());
         }
         setContentView(R.layout.activity_news_feed);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
-        setSupportActionBar(toolbar);
+        postholder.context=getApplicationContext();
+        setToolbar();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         mDrawer = (NavigationView) findViewById(R.id.main_drawer);
         mDrawer.setNavigationItemSelectedListener(this);
@@ -75,9 +75,22 @@ public class NewsFeedActivity extends AppCompatActivity implements NavigationVie
         } else {
             hideDrawer();
         }
-        mSelectedId = savedInstanceState == null ? R.id.navigation_item_1 : savedInstanceState.getInt(SELECTED_ITEM_ID);
+        if (!didUserSeeDrawer()) {
+            showDrawer();
+            markDrawerSeen();
+        } else {
+            hideDrawer();
+        }
+
+        Intent i = getIntent();
+        mSelectedId = i.getIntExtra("calendar_fragment_id", R.id.navigation_item_1);
+        if (savedInstanceState != null) {
+            savedInstanceState.getInt(SELECTED_ITEM_ID);
+        }
         navigate(mSelectedId);
     }
+
+
 
     private boolean didUserSeeDrawer() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -101,32 +114,41 @@ public class NewsFeedActivity extends AppCompatActivity implements NavigationVie
 
     private void navigate(int mSelectedId) {
 
-        Fragment fragment = new tabfragment();
+        Fragment fragment = new PlacesFragment();
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
 
 
         switch (mSelectedId) {
+            case R.id.navigation_item_1:
+                fragment = new PlacesFragment();
+
+                break;
             case R.id.navigation_item_2:
-                fragment = new tabfragment();
+                fragment = new events_fragment();
+
                 break;
             case R.id.navigation_item_3:
-                fragment = new Events_Fragment();
+                fragment = new notification_fragment();
+
                 break;
             case R.id.navigation_item_4:
-                fragment = new tabfragment();
+                fragment = new setting_fragment();
+
                 break;
             case R.id.navigation_item_5:
-                    /*ParseUser.logOut();
-                    navigateToLogin();
-                    break;*/
                 DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
                             case DialogInterface.BUTTON_POSITIVE:
                                 //Clicked Yes
-                                ParseUser.logOut();
-                                navigateToLogin();
+                                if(netConnectionCheck()) {
+                                    ParseUser.logOut();
+                                    navigateToLogin();
+                                }
+                                else{
+                                    Toast.makeText(getBaseContext(), "Pleaes turn on internet connection to log out", Toast.LENGTH_SHORT).show();
+                                }
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:
@@ -140,7 +162,6 @@ public class NewsFeedActivity extends AppCompatActivity implements NavigationVie
                 builder.setMessage("Are you sure you want to log out?").setPositiveButton("Yes", dialogClickListener)
                         .setNegativeButton("No", dialogClickListener).show();
 
-                break;
 
         }
 
@@ -182,12 +203,22 @@ public class NewsFeedActivity extends AppCompatActivity implements NavigationVie
     }
 
     private void navigateToLogin() {
-        Intent intent = new Intent(this, LoginActivity.class);
+        Intent intent = new Intent(this,WelcomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
 
 
+    }
+    private void setToolbar(){
+        toolbar = (Toolbar) findViewById(R.id.app_bar);
+        setSupportActionBar(toolbar);
+    }
+
+
+    private boolean netConnectionCheck() {
+        CheckConnection checkConnection = new CheckConnection(getBaseContext());
+        return checkConnection.isNetworkAvailable();
     }
 
 

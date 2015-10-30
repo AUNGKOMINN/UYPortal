@@ -50,6 +50,7 @@ public class Signup_Activity extends AppCompatActivity {
     static Button _next_btn;
     static int slideNum = 1;
     public static String [] userData = new String[5];
+    public static String username;
     ProgressDialog pd;
 
     @Override
@@ -191,7 +192,7 @@ public class Signup_Activity extends AppCompatActivity {
         user.setEmail(userData[2]);
         user.setPassword(userData[3]);
         user.setUsername(userData[4]);
-
+        username=(userData[4]);
         // Call the Parse signup method
         user.signUpInBackground(new SignUpCallback() {
             @Override
@@ -199,7 +200,7 @@ public class Signup_Activity extends AppCompatActivity {
                 if(pd.isShowing()) pd.dismiss();
                 if (e == null) {
                     Toast.makeText(Signup_Activity.this, "Sign Up Success!", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(Signup_Activity.this, NewFeedActivity.class);
+                    Intent intent = new Intent(Signup_Activity.this, NewsFeedActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     ParseConstants.KEY_USER_LOGGED = true;
                     startActivity(intent);
