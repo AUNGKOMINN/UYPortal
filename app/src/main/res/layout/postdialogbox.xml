@@ -4,39 +4,50 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-<android.support.design.widget.TextInputLayout
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/clickicon_textview"
+        android:text="Click icon to change to Anonymous"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:textAppearance="?android:textAppearanceSmall" />
+<!--<android.support.design.widget.TextInputLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:id="@+id/errorforstatus">
+    android:id="@+id/errorforstatus">-->
     <EditText
+        android:layout_below="@id/clickicon_textview"
         android:id="@+id/statustext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="vertical"
-        android:text="test"
+        android:hint="Write status here....."
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
         android:textColor="@android:color/black"
-        android:textSize="40px"
+        android:textAppearance="?android:textAppearanceMedium"
         android:background="@color/white"
         tools:context=".LinedPaperActivity"
-        android:layout_alignParentTop="true"
+
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+
         />
     <requestFocus/>
-</android.support.design.widget.TextInputLayout>
+<!--</android.support.design.widget.TextInputLayout>-->
+
     <ImageView
         android:id="@+id/btn_anonymousOff"
         android:background="@mipmap/annonymous2_grey"
         android:clickable="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/errorforstatus"
+        android:layout_below="@+id/statustext"
         android:layout_alignParentEnd="true"
-        android:visibility="visible"/>
+        android:visibility="visible"
+        android:paddingRight="@dimen/activity_horizontal_margin"/>
 
     <ImageView
         android:id="@+id/btn_anonymousOn"
@@ -44,7 +55,7 @@
         android:clickable="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/errorforstatus"
+        android:layout_below="@+id/statustext"
         android:layout_alignParentEnd="true"
         android:visibility="gone"/>
 

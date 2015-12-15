@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
+
 import uycs.uyportal.R;
 import uycs.uyportal.util.CheckConnection;
 import uycs.uyportal.util.FontCache;
@@ -50,7 +51,6 @@ public class Signup_Activity extends AppCompatActivity {
     static Button _next_btn;
     static int slideNum = 1;
     public static String [] userData = new String[5];
-    public static String username;
     ProgressDialog pd;
 
     @Override
@@ -59,6 +59,7 @@ public class Signup_Activity extends AppCompatActivity {
         setContentView(R.layout.signup_layout);
         _next_btn =(Button) findViewById(R.id.btn_next);
         ButterKnife.bind(this);
+
 
         _signup_text.setTypeface(FontCache.get("fonts/Roboto-Light.ttf", getApplicationContext()));
         _back_btn.setVisibility(View.GONE);
@@ -192,7 +193,7 @@ public class Signup_Activity extends AppCompatActivity {
         user.setEmail(userData[2]);
         user.setPassword(userData[3]);
         user.setUsername(userData[4]);
-        username=(userData[4]);
+
         // Call the Parse signup method
         user.signUpInBackground(new SignUpCallback() {
             @Override
@@ -292,7 +293,7 @@ public class Signup_Activity extends AppCompatActivity {
                         if(event.getAction() == MotionEvent.ACTION_UP){
                             int rightD = _textInput.getRight() -
                                     _textInput.getCompoundDrawables()[DRIGHT].getBounds().width();
-                            if(event.getRawX() >= _textInput.getRight()){
+                            if(event.getRawX() >= rightD){
                                 if(ishide){
                                     _textInput.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                                     _textInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.eyeopen, 0);
@@ -344,6 +345,8 @@ public class Signup_Activity extends AppCompatActivity {
             if(text.isEmpty()){
                 _outerTI.setError("name cannot be empty");
                 _next_btn.setEnabled(false);
+            }else if(text.length()<4){
+                _next_btn.setEnabled(false);
             }else{
                 _outerTI.setError(null);
                 _next_btn.setEnabled(true);
@@ -353,13 +356,10 @@ public class Signup_Activity extends AppCompatActivity {
         private void emailValidate(EditText et){
             String email = et.getText().toString();
             if(email.isEmpty()){
-                _outerTI.setError("email cannot be empty");
                 _next_btn.setEnabled(false);
             }else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-                _outerTI.setError("invalid email format");
                 _next_btn.setEnabled(false);
             }else{
-                _outerTI.setError(null);
                 _next_btn.setEnabled(true);
             }
         }
@@ -372,7 +372,10 @@ public class Signup_Activity extends AppCompatActivity {
             if(matcher.matches()){
                 _outerTI.setError(null);
                 _next_btn.setEnabled(true);
-            }else{
+            }else if(username.length()<4){
+                _next_btn.setEnabled(false);
+            }
+            else{
                 _outerTI.setError("invalid username format");
                 _next_btn.setEnabled(false);
             }
@@ -507,7 +510,6 @@ public class Signup_Activity extends AppCompatActivity {
                     }else{
                         _next_btn.setEnabled(true);
                     }
-
                 }
             });
         }

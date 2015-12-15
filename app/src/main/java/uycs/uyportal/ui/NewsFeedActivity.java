@@ -120,18 +120,22 @@ public class NewsFeedActivity extends AppCompatActivity implements NavigationVie
 
         switch (mSelectedId) {
             case R.id.navigation_item_1:
+                hideDrawer();
                 fragment = new PlacesFragment();
 
                 break;
             case R.id.navigation_item_2:
+                hideDrawer();
                 fragment = new events_fragment();
 
                 break;
             case R.id.navigation_item_3:
+                hideDrawer();
                 fragment = new notification_fragment();
 
                 break;
             case R.id.navigation_item_4:
+                hideDrawer();
                 fragment = new setting_fragment();
 
                 break;

@@ -11,7 +11,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5sp"
+        android:layout_margin="5dp"
         card_view:cardBackgroundColor="#EFEFEF"
         card_view:cardCornerRadius="13dp"
         card_view:cardElevation="10dp">
@@ -21,16 +21,23 @@
             android:layout_height="wrap_content"
             android:id="@+id/rl"
             android:padding="3dp">
-            
+            <android.support.v7.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:padding="3dp"
+                android:id="@+id/icon"
+                card_view:cardCornerRadius="13dp"
+                >
             <uycs.uyportal.util.LetterImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:elevation="8dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
                 android:id="@+id/myicon"
-                android:padding="3dp"
+
                 />
+            </android.support.v7.widget.CardView>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -45,7 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="3dp"
-                android:layout_below="@+id/myicon"
+                android:layout_below="@+id/icon"
                 android:id="@+id/contents"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"

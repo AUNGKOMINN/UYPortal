@@ -14,10 +14,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.LogInCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.RequestPasswordResetCallback;
+
 import uycs.uyportal.R;
 import uycs.uyportal.util.CheckConnection;
 import uycs.uyportal.util.FontCache;
@@ -40,8 +46,7 @@ public class Login_Activity extends AppCompatActivity {
     @Bind(R.id.pwd_lbl) TextView _pwd_lbl;
     @Bind(R.id.forget_pwd) TextView _forget_pwd;
     @Bind(R.id.btn_login)   Button _login;
-    boolean usernameOK, pwdOK;
-    String userS;
+    boolean usernameOK, pwdOK, isEmailType;
     ProgressDialog pd;
     int loginCount = 0;
     @Override
@@ -52,7 +57,7 @@ public class Login_Activity extends AppCompatActivity {
 
         setFont();
         _login.setEnabled(false);
-        usernameOK = pwdOK  = false;
+        usernameOK = pwdOK  = isEmailType = false;
 
         setValidation(_username.getEditText(), _password.getEditText());
 
@@ -62,7 +67,7 @@ public class Login_Activity extends AppCompatActivity {
                 if (!netConnectionCheck()) {
                     Toast.makeText(getApplicationContext(), "Network not available", Toast.LENGTH_LONG).show();
                 } else
-                    parseLogIn();
+                    LogIn();
             }
         });
 
@@ -83,16 +88,37 @@ public class Login_Activity extends AppCompatActivity {
         overridePendingTransition(R.anim.pull_in_left, R.anim.push_out_right);
     }
 
-    private void parseLogIn(){
+    private void LogIn(){
         pd = new ProgressDialog(Login_Activity.this);
         pd.setMessage("Logging in ...");
         pd.setCancelable(false);
         pd.show();
-        _login.setEnabled(false);
 
-        String username = _username.getEditText().getText().toString();
-        String password = _password.getEditText().getText().toString();
+        final String username = _username.getEditText().getText().toString();
+        final String password = _password.getEditText().getText().toString();
 
+        if(android.util.Patterns.EMAIL_ADDRESS.matcher(username).matches()) {
+            ParseQuery<ParseUser> query = ParseUser.getQuery();
+            query.whereEqualTo("email",username);
+            query.getFirstInBackground(new GetCallback<ParseUser>() {
+                @Override
+                public void done(ParseUser parseUser, ParseException e) {
+                    isEmailType = true;
+                    if (parseUser == null) {
+                        Toast.makeText(getApplicationContext(), "Email or password are not correct", Toast.LENGTH_LONG).show();
+                    } else {
+                        parseLogin(parseUser.getUsername(), password);
+                    }
+                    if (pd.isShowing() && isEmailType) pd.dismiss();
+                }
+            });
+        }else{
+            parseLogin(username,password);
+        }
+
+    }
+
+    private void parseLogin(String username, String password){
         ParseUser.logInInBackground(username, password, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException e) {
@@ -106,6 +132,7 @@ public class Login_Activity extends AppCompatActivity {
                 } else {
                     if (e.getCode() == 101) {
                         loginCount++;
+                        if(!isEmailType)
                         Toast.makeText(getApplicationContext(), "username and password are not correct",
                                 Toast.LENGTH_SHORT).show();
                     } else if (e.getCode() == 100)
@@ -241,13 +268,21 @@ public class Login_Activity extends AppCompatActivity {
 
     private void username_validate(EditText et){
         String text = et.getText().toString();
-        usernameOK = !text.isEmpty();
+        if(text.isEmpty()){
+            usernameOK = false;
+        }else{
+            usernameOK = true;
+        }
         bothOK();
     }
 
     private void pwd_validate(EditText et){
         String text = et.getText().toString();
-        pwdOK = !(text.isEmpty() || text.length() < 6);
+        if(text.isEmpty() || text.length() < 6){
+            pwdOK = false;
+        }else{
+            pwdOK = true;
+        }
         bothOK();
     }
 

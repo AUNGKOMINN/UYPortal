@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">UY Portal</string>
+    <string name="app_name">YU Portal</string>
     <string name="username_lbl">Username</string>
     <string name="pwd_lbl">Password</string>
     <string name="email_lbl">Email</string>

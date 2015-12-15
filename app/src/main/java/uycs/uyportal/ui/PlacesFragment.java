@@ -5,7 +5,9 @@ import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -19,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +41,7 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,7 +108,7 @@ public class PlacesFragment extends Fragment implements GoogleMap.OnMarkerClickL
     private Handler MapHandler;
     private int MAX_ZOOM = 20;
     private int MIN_ZOOM = 16;
-    public static String current_place;
+    ParseUser currentUser;
     public List<posts> mainpost;
     private Context mContext;
     private RecyclerView myRecyclerView;
@@ -112,6 +116,7 @@ public class PlacesFragment extends Fragment implements GoogleMap.OnMarkerClickL
     private ProgressBar bar;
     private SwipeRefreshLayout swipe;
     public static final String TAG = PlacesFragment.class.getSimpleName();
+    private LinearLayout places_fragment_LinearLayout;
 
 
     @Nullable
@@ -119,17 +124,21 @@ public class PlacesFragment extends Fragment implements GoogleMap.OnMarkerClickL
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_maps, container, false);
         ButterKnife.bind(this, rootView);
+
+        places_fragment_LinearLayout = (LinearLayout) rootView.findViewById(R.id.places_fragment_LinearLayout);
         bottomloading.setVisibility(View.GONE);
         errorText.setVisibility(View.GONE);
         mContext = rootView.getContext();
-       username = ParseUser.getCurrentUser().getUsername();
+
+       currentUser = ParseUser.getCurrentUser();
+
         fab_Places.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (postable) {
                     postDialog();
                 } else
-                    Toast.makeText(getActivity(), "choose marker to post", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Choose a location to post", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -184,13 +193,12 @@ public class PlacesFragment extends Fragment implements GoogleMap.OnMarkerClickL
                                 bottomloading.setVisibility(View.GONE);
                             }
                             if(list.isEmpty()){
-                                Toast.makeText(getActivity(),"no data", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(),"No new post", Toast.LENGTH_SHORT).show();
                                 bottomloading.setVisibility(View.GONE);
                             }
 
                         } else {
-                            Log.e("errror", e.toString());
-                            Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(),"Something went wrong. Please try again later.", Toast.LENGTH_SHORT).show();
                             bar.setVisibility(View.GONE);
                         }
                     }
@@ -406,20 +414,20 @@ public class PlacesFragment extends Fragment implements GoogleMap.OnMarkerClickL
                 }
             });
         }
-        else Toast.makeText(getActivity(), "Connection error", Toast.LENGTH_SHORT).show();
+        else /*Toast.makeText(getActivity(), "Connection error", Toast.LENGTH_SHORT).show();*/
+            Snackbar.make(places_fragment_LinearLayout, "Cannot connet to internet", Snackbar.LENGTH_SHORT).show();
 
     }
 
     private void postDialog(){
-
+        myname = currentUser.getUsername();
         final AlertDialog builder = new AlertDialog.Builder(getActivity(),R.style.AlertDialog).create();
         LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
         final View post_dialog= layoutInflater.inflate(R.layout.postdialogbox, null);
         final EditText editText=(EditText) post_dialog.findViewById(R.id.statustext);
-        final TextInputLayout ErrorTxtlayout=(TextInputLayout) post_dialog.findViewById(R.id.errorforstatus);
+/*        final TextInputLayout ErrorTxtlayout=(TextInputLayout) post_dialog.findViewById(R.id.errorforstatus);*/
         final ImageView anonymousOff =(ImageView) post_dialog.findViewById(R.id.btn_anonymousOff);
         final ImageView anonymousOn=(ImageView) post_dialog.findViewById(R.id.btn_anonymousOn);
-
 
         anonymousOff.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -427,6 +435,7 @@ public class PlacesFragment extends Fragment implements GoogleMap.OnMarkerClickL
                 anonymousOff.setVisibility(View.GONE);
                 anonymousOn.setVisibility(View.VISIBLE);
                 myname="Anonymous";
+                Toast.makeText(getActivity(), "Will post as Anonymous", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -436,7 +445,8 @@ public class PlacesFragment extends Fragment implements GoogleMap.OnMarkerClickL
             public void onClick(View view) {
                 anonymousOn.setVisibility(View.GONE);
                 anonymousOff.setVisibility(View.VISIBLE);
-                myname=Signup_Activity.username;
+                myname = currentUser.getUsername();
+                Toast.makeText(getActivity(), "Will post as " + myname, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -448,29 +458,24 @@ public class PlacesFragment extends Fragment implements GoogleMap.OnMarkerClickL
                 builder.dismiss();
             }
         });
-        builder.setButton(AlertDialog.BUTTON_POSITIVE, "post", new DialogInterface.OnClickListener() {
+        builder.setButton(AlertDialog.BUTTON_POSITIVE, "Post", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                String status = editText.getText().toString();
-                if (!status.isEmpty()) {
-                    posts post = new posts();
-                    post.setUsername(myname);
-                    post.setFromUserid(ParseUser.getCurrentUser());
-                    post.setToPlace(places);
-                    post.setStatus(status);
-                    post.saveInBackground();
-                } else
-                    ErrorTxtlayout.setError("This cannot be empty");
-
-
+                if (!CheckingConnection()) {
+                    Toast.makeText(getActivity(), "No internet connection", Toast.LENGTH_SHORT).show();
+                } else {
+                    String status = editText.getText().toString();
+                    if (!status.isEmpty()) {
+                        posts post = new posts();
+                        post.setUsername(myname);
+                        post.setFromUserid(ParseUser.getCurrentUser());
+                        post.setToPlace(places);
+                        post.setStatus(status);
+                        post.saveInBackground();
+                    }
             }
-        });
-        builder.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                builder.dismiss();
-            }
-        });
+        }
+    });
         builder.show();
 
 
@@ -478,7 +483,6 @@ public class PlacesFragment extends Fragment implements GoogleMap.OnMarkerClickL
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-
 
         for(int i=0;i<places_array.length;i++){
             if (marker.equals(Markerlist.get(i))){
@@ -530,7 +534,7 @@ public class PlacesFragment extends Fragment implements GoogleMap.OnMarkerClickL
 
 
             });
-        }else if(mainpost==null){
+        }else if(mainpost.isEmpty()){
             queryForMainpost();
             onrefreshcomplete(false);
         }

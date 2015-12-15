@@ -2,6 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/create_event_item"
-        android:title="Create Event">
+        android:title="Create Event"
+        android:icon="@drawable/plussign"
+        android:showAsAction="ifRoom">
     </item>
 </menu>
